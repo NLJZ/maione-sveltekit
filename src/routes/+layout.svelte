@@ -5,7 +5,6 @@
   import '../app.css';
 
   export let data;
-
   const albums = writable();
   setContext('albums', albums);
   const photos = writable();
@@ -41,17 +40,6 @@
     flex-direction: column;
     min-height: calc(100vh - 40px);
     position: relative;
-  }
-
-  footer {
-    margin-top: auto;
-    width: 100%;
-    padding: 20px;
-    display: flex;
-    font-size: 12px;
-    flex-grow: 1;
-    justify-content: space-between;
-    align-items: flex-end;
   }
 
   nav {
