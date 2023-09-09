@@ -1,3 +1,4 @@
+export const prerender = true;
 export const load = async ({ fetch, url }) => {
   const res = await fetch("https://strapi-maione.nlj.uber.space/api/albums?populate=*&sort=id:desc");
   const albums = await res.json();
