@@ -7,18 +7,15 @@
   export let data;
   const albums = writable();
   setContext('albums', albums);
-  const photos = writable();
-  setContext('photos', photos);
 
   $: albums.set(data.albums);
-  $: photos.set(data.photos);
 
   let year =  new Date().getFullYear();
 
 </script>
 
 <svelte:head>
-
+	<title>davide maione</title>
 </svelte:head>
 
 <nav>
@@ -48,7 +45,8 @@
     justify-content: center;
     z-index: 100;
     height: 40px;
-    background: #fff;
+    background: #f9f9f9;;
+    border-bottom: 1px solid #ccc;
   }
 
   .fixed-inner {
@@ -62,13 +60,13 @@
   }
 
   .nav-inner {
-    padding: 10px 80px;
+    padding: 10px 20px;
   }
 
   .site-title {
     color: #222;
     text-decoration: none;
-    font-size: 12px;
+    font-size: 14px;
   }
 
   a {

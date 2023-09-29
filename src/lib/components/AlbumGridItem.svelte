@@ -1,7 +1,6 @@
 <script>
   export let album;
-  console.log(album);
-  const imageUrl = album.attributes.cover.data ? `https://strapi-maione.nlj.uber.space${album.attributes.cover.data.attributes.formats.large.url}` : '';
+  const imageUrl = album.attributes && album.attributes.cover.data ? `https://strapi-maione.nlj.uber.space${album.attributes.cover.data.attributes.formats.large.url}` : '';
 </script>
 
 <div class="container">

@@ -18,6 +18,7 @@ body {
   -webkit-font-smoothing: antialiased;
   color: #222;
   height: fit-content;
+  background-color: #f9f9f9;
 }
 
 img, picture, video, canvas, svg {
@@ -61,6 +62,7 @@ p {
   font-size: 14px;
   line-height: 1.7rem;
   margin: 20px 0 0 0;
+  max-width: 500px;
 }
 
 ul {
@@ -79,7 +81,12 @@ a {
 @media (hover: hover) {
   a:hover {
     opacity: .7;
+    color: black;
   }
+}
+
+li > a, p > a {
+  text-decoration: underline;
 }
 
 button {

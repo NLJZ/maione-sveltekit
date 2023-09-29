@@ -1,11 +1,7 @@
 <script>
-	import { marked } from 'marked';
   import { getContext } from 'svelte';
   import AlbumGridItem from '../../lib/components/AlbumGridItem.svelte';
 	const albums = getContext('albums');
-  const photos = getContext('photos');
-  console.log($albums);
-
 </script>
 <svelte:head>
 	<title>davide maione - work</title>
@@ -36,8 +32,13 @@
     padding: 20px 0 200px 0;
   }
 
+  .grid > a {
+    filter: drop-shadow(1px 1px 1px #ccc);
+  }
+
   @media(min-width: 640px) {
     .grid {
+      padding-top: 60px;
       grid-template-columns: 1fr 1fr;
       gap: 30px;
       padding-right: 30px;

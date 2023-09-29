@@ -1,7 +1,8 @@
 <script>
   import { swipe } from 'svelte-gestures';
-  import { fade, fly, slide } from 'svelte/transition';
+  import { fade } from 'svelte/transition';
   import { quintOut } from 'svelte/easing';
+  import { onMount } from 'svelte';
   export let imageArray;
 
   let currentIndex = 0;
@@ -19,26 +20,50 @@
     direction === 'left' ? nextImage() : previousImage();
   }
 
+  onMount(()=> {
+    console.log('array of images', imageArray)
+  });
+
 </script>
 
 {#if imageArray.length}
+{#if imageArray.length > 1}
 <div class="top"><div class="left"><span class="progress">{currentIndex + 1}/{imageArray.length}</span></div><div class="bottom"><button on:click={previousImage}>prev</button><span class="line" /><button on:click={nextImage}>next</button></div>
 </div>
+{/if}
 
 <div class="container">
-  <div class="inner">
-    <div use:swipe={{ timeframe: 300, minSwipeDistance: 60, touchAction: 'pan-y' }} on:swipe={handleSwipe} class="image-holder">
+  <div class="inner" use:swipe={{ timeframe: 300, minSwipeDistance: 60, touchAction: 'pan-y' }} on:swipe={handleSwipe}  > 
       {#each imageArray as image, i}
+      {#key i}
       {#if i === currentIndex}
-      <img transition:fade src={`https://strapi-maione.nlj.uber.space${image}`} alt='current'/>
+
+      <img transition:fade src={`https://strapi-maione.nlj.uber.space${image.attributes.file.data.attributes.formats.large.url}`} alt='current'/>
+    
       {/if}
+      {/key}
+
     {/each}
-    </div>
-</div>
+   
+
+  </div>
+  {#each imageArray as image, i}
+  {#if i === currentIndex}
+  <ul class="photoInfo">
+    <li class="photoTitle">{image.attributes.title}</li>
+    <li>{image.attributes.year}</li>
+    <li>{image.attributes.format}</li>
+    <li>{image.attributes.size}</li>
+  </ul>
+  {/if}
+  {/each}
+  </div>
 
 
 
-</div>
+
+
+
 {/if}
 
 <style>
@@ -46,18 +71,34 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    width: 600px;
+    max-width: 100%;
   }
 
 
   .top {
-    padding: 20px 10px 40px 10px;
+    padding: 10px 0;
     display: flex;
-    justify-content: space-between;
+    width: 100%;
+    max-width: 200px;
   }
 
   .progress {
     font-family:'Courier New', Courier, monospace;
     font-size: 12px;
+    color: #000;
+  }
+
+  .photoInfo {
+    padding-top: 20px;
+  }
+
+  .photoInfo > li {
+    font-family:'Courier New', Courier, monospace;
+  }
+
+  .photoTitle {
+    font-style: italic;
   }
 
   .title {
@@ -69,30 +110,30 @@
   .left {
     display: flex;
     align-items: center;
-    width: 100%;
+    padding-right: 20px;
     justify-content: flex-start;
   }
 
   .inner {
     display: flex;
-    align-items: center;
-    padding: 0 10px;
-  }
-
-  .image-holder {
+    align-items: flex-end;
+    justify-content: center;
+    width: 600px;
+    max-height: 600px;
+    max-width: 100%;
+    aspect-ratio: 1;
     position: relative;
-    width: 100%;
-    padding-bottom: 100%;
+    /* border-top: solid 1px #ccc; */
+    /* border-bottom: solid 1px #cee7d9; */
   }
 
   img {
     position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
     left: 0;
-    width: 100%;
-    border: 1px solid #ccc;
+    object-fit: contain;
+    /* width: 100%; */
+    height: 100%;
+    padding: 20px 0;
   }
 
   button {
@@ -111,9 +152,7 @@
 
   .bottom {
     display: flex;
-    justify-content: flex-end;
     width: 100%;
-    padding-right: 10px;
   }
 
   .line {
