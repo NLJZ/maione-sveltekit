@@ -11,14 +11,20 @@
 <style>
 .background {
     min-width: 100%;
-    height: calc(100vh - 40px);
-
   }
 
   img {
-    height: calc(100vh - 40px);
+    height: calc(100vh - 50px);
+    max-height: calc(100dvh - 50px);
     width: 100%;
     object-fit: cover;
+  }
+
+  @media(min-width: 601px) {
+    img {
+      height: calc(100vh - 56px);
+      max-height: calc(100dvh - 56px);
+    }
   }
 
 </style>

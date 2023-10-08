@@ -36,7 +36,8 @@
     padding: 0;
     display: flex;
     flex-direction: column;
-    min-height: calc(100vh - 40px);
+    /* height: 100dvh;
+    height: 100vh; */
     position: relative;
   }
 
@@ -66,14 +67,12 @@
   .site-title {
     color: #222;
     text-decoration: none;
-    font-size: 18px;
   }
 
   a {
     transition: all ease-in-out 200ms;
     color: #222;
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 20px;
   }
 
   a:hover {
@@ -97,15 +96,13 @@
     margin-left: 20px;
   }
 
-  @media(min-width: 600px) {
+  @media(min-width: 601px) {
     .site-title{
       font-size: 24px;
-      font-weight: normal;
     }
 
     a {
       font-size: 24px;
-      font-weight: normal;
     }
   }
 
