@@ -9,7 +9,7 @@
 
 <div class="container">
 	<div class="grid">
-    {#each $albums.data as album, i}
+    {#each $albums.data as album}
       <a href={`/work/${album.attributes.slug}`}><AlbumGridItem album={album} /></a>
     {/each}
   </div>
@@ -20,9 +20,7 @@
 
 	.container {
     flex-grow: 2;
-		padding: 0 20px;
     height: 100%;
-    min-height: 100%;
 	}
 
   .grid {
@@ -32,25 +30,21 @@
     padding: 20px 0 200px 0;
   }
 
-  .grid > a {
-    filter: drop-shadow(1px 1px 1px #ccc);
-  }
-
   @media(min-width: 640px) {
     .grid {
-      padding-top: 60px;
+      padding-top: 40px;
       grid-template-columns: 1fr 1fr;
-      gap: 30px;
-      padding-right: 30px;
-      padding-left: 30px;
+      gap: 20px;
+      padding-right: 20px;
+      padding-left: 20px;
     }
   }
 
   @media(min-width: 1000px) {
     .grid {
       grid-template-columns: 1fr 1fr 1fr;
-      padding-right: 40px;
-      padding-left: 40px;
+      padding-right: 20px;
+      padding-left: 20px;
       gap: 30px;
     }
   }

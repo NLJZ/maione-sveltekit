@@ -1,4 +1,5 @@
 <script>
+  import "@fontsource/roboto";
   import { writable } from 'svelte/store';
   import { setContext } from 'svelte';
   import { page } from '$app/stores';
@@ -44,9 +45,7 @@
     display: flex;
     justify-content: center;
     z-index: 100;
-    height: 40px;
-    background: #f9f9f9;;
-    border-bottom: 1px solid #ccc;
+    background: #fff;
   }
 
   .fixed-inner {
@@ -57,6 +56,7 @@
     padding: 0 20px;
     position: relative;
     align-items: center;
+    max-width: 940px;
   }
 
   .nav-inner {
@@ -66,13 +66,14 @@
   .site-title {
     color: #222;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 18px;
   }
 
   a {
     transition: all ease-in-out 200ms;
     color: #222;
-    font-size: 12px;
+    font-size: 18px;
+    font-weight: bold;
   }
 
   a:hover {
@@ -94,6 +95,18 @@
 
   .right a {
     margin-left: 20px;
+  }
+
+  @media(min-width: 600px) {
+    .site-title{
+      font-size: 24px;
+      font-weight: normal;
+    }
+
+    a {
+      font-size: 24px;
+      font-weight: normal;
+    }
   }
 
 

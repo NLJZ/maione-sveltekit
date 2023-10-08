@@ -1,12 +1,20 @@
 <script>
+  import { clearAllBodyScrollLocks, disableBodyScroll } from 'body-scroll-lock';
+  import { onDestroy, onMount } from 'svelte';
   import { swipe } from 'svelte-gestures';
   import { fade } from 'svelte/transition';
-  import { quintOut } from 'svelte/easing';
-  import { onMount } from 'svelte';
+  import RightIcon from "$lib/components/icons/RightIcon.svelte";
+  import LeftIcon from "$lib/components/icons/LeftIcon.svelte";
+  import CloseIcon from "$lib/components/icons/CloseIcon.svelte";
   export let imageArray;
+  export let startIndex;
+  export let handleHide;
 
-  let currentIndex = 0;
+  let currentIndex = startIndex;
 
+  let container;
+
+  
   function nextImage() {
     currentIndex = (currentIndex + 1) % imageArray.length;
   }
@@ -21,144 +29,158 @@
   }
 
   onMount(()=> {
-    console.log('array of images', imageArray)
+    disableBodyScroll(container);
   });
+
+  onDestroy(()=> {
+    clearAllBodyScrollLocks();
+  })
 
 </script>
 
-{#if imageArray.length}
-{#if imageArray.length > 1}
-<div class="top"><div class="left"><span class="progress">{currentIndex + 1}/{imageArray.length}</span></div><div class="bottom"><button on:click={previousImage}>prev</button><span class="line" /><button on:click={nextImage}>next</button></div>
-</div>
-{/if}
-
-<div class="container">
+<div bind:this={container} class="container">
   <div class="inner" use:swipe={{ timeframe: 300, minSwipeDistance: 60, touchAction: 'pan-y' }} on:swipe={handleSwipe}  > 
       {#each imageArray as image, i}
       {#key i}
       {#if i === currentIndex}
 
-      <img transition:fade src={`https://strapi-maione.nlj.uber.space${image.attributes.file.data.attributes.formats.large.url}`} alt='current'/>
+      <img transition:fade src={`https://strapi-maione.nlj.uber.space${image.attributes.file.data.attributes.url}`} alt='current'/>
     
       {/if}
       {/key}
 
     {/each}
-   
-
-  </div>
-  {#each imageArray as image, i}
-  {#if i === currentIndex}
-  <ul class="photoInfo">
-    <li class="photoTitle">{image.attributes.title}</li>
-    <li>{image.attributes.year}</li>
-    <li>{image.attributes.format}</li>
-    <li>{image.attributes.size}</li>
-  </ul>
-  {/if}
-  {/each}
   </div>
 
+  <button class="control prev" on:click={previousImage}><span class="arrow nav navPrev"><LeftIcon /></span></button>
+  <button class="control next" on:click={nextImage}><span class="arrow nav navNext"><RightIcon /></span></button>
+  <button class="close" on:click={()=> handleHide()}><CloseIcon /></button>
 
-
-
-
-
-{/if}
+</div>
 
 <style>
   .container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    width: 600px;
-    max-width: 100%;
+    height: 100vh;
+    z-index: 100;
+    background: #222;
   }
 
-
-  .top {
-    padding: 10px 0;
-    display: flex;
-    width: 100%;
-    max-width: 200px;
+  button {
+    background: transparent;
   }
-
-  .progress {
-    font-family:'Courier New', Courier, monospace;
-    font-size: 12px;
-    color: #000;
-  }
-
-  .photoInfo {
-    padding-top: 20px;
-  }
-
-  .photoInfo > li {
-    font-family:'Courier New', Courier, monospace;
-  }
-
-  .photoTitle {
-    font-style: italic;
-  }
-
-  .title {
-    font-weight: bold;
-    font-size: 12px;
-    padding-right: 20px;
-  }
-
-  .left {
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
     display: flex;
     align-items: center;
-    padding-right: 20px;
-    justify-content: flex-start;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: rgba(7, 7, 7, 0.1);
   }
+
+
+
+  .control {
+    opacity: 0;
+    width: 33%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    color: #fff;
+    transition: all ease-in-out 500ms;
+    display: grid;
+  }
+
+  .nav {
+    display: flex;
+    opacity: 1;
+    color: #fff;
+    border-radius: 50%;
+    background-color: rgba(7, 7, 7, 0.3);
+    padding: 20px;
+    width: 80px;
+    height: 80px;
+    justify-content: center;
+    align-items: center;
+  }
+  .navPrev {
+    display: flex;
+   justify-self: flex-start;
+   align-self: center;
+   margin-left: 10px;
+  }
+
+  .navNext {
+    display: flex;
+    justify-self: flex-end;
+    align-self: center;
+    margin-right: 10px;
+  }
+
+  .prev {
+    left: 0;
+  }
+
+  .next {
+    right: 0;
+  }
+
+
 
   .inner {
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    width: 600px;
-    max-height: 600px;
-    max-width: 100%;
-    aspect-ratio: 1;
+    width: 100%;
+    height: 100%;
     position: relative;
-    /* border-top: solid 1px #ccc; */
-    /* border-bottom: solid 1px #cee7d9; */
   }
 
   img {
     position: absolute;
+    top: 0;
     left: 0;
     object-fit: contain;
-    /* width: 100%; */
-    height: 100%;
-    padding: 20px 0;
-  }
-
-  button {
-    font-family:'Courier New', Courier, monospace;
-    font-size: 12px;
-    padding: 8px;
-    border: 1px solid transparent;
-  }
-
-  button:hover {
-    color: #111;
-    border: 1px solid #cdcdcd;
-    transition: all ease-in-out 500ms;
-
-  }
-
-  .bottom {
-    display: flex;
     width: 100%;
+    height: 100%;
   }
 
-  .line {
-    border-left: 1px solid #ccc;
-    margin: 2px 8px;
+  @media (hover: hover) { 
+    .close {
+      transition: all ease-in-out 500ms;
+      animation-duration: 3s;
+      animation-name: fadeOut;
+      width: 80px;
+      height: 80px;
+      padding: 30px;
+      opacity: 0;
+    }
+
+    .close:hover, .control:hover {
+      opacity: 1
+    }
+
+    .control {
+      animation-duration: 2s;
+      animation-name: fadeOut;
+    }
   }
+
+  @keyframes fadeOut {
+    0%   {opacity: 1}
+    100% {opacity: 0;}
+  }
+
+
+
 
 
 
