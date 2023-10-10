@@ -17,6 +17,7 @@
 
 <svelte:head>
 	<title>davide maione</title>
+  <link rel="prefetch" as="image" href="https://strapi-maione.nlj.uber.space/uploads/Foe_Me_10f7b97f2a.jpg" />
 </svelte:head>
 
 <nav>

@@ -14,7 +14,6 @@
 
   let container;
 
-  
   function nextImage() {
     currentIndex = (currentIndex + 1) % imageArray.length;
   }
@@ -28,6 +27,13 @@
     direction === 'left' ? nextImage() : previousImage();
   }
 
+  function handleKeydown(event) {
+    if (event.key === 'Escape') return handleHide();
+    if (event.key === 'ArrowRight') return previousImage();
+    if (event.key === 'ArrowLeft') return nextImage();
+    return;
+  }
+
   onMount(()=> {
     disableBodyScroll(container);
   });
@@ -37,6 +43,14 @@
   })
 
 </script>
+
+<svelte:window on:keydown={handleKeydown} />
+
+<svelte:head>
+  {#each imageArray as image}
+  <link rel="prefetch" as="image" href={`https://strapi-maione.nlj.uber.space${image.attributes.file.data.attributes.url}`} />
+  {/each}
+</svelte:head>
 
 <div bind:this={container} class="container">
   <div class="inner" use:swipe={{ timeframe: 300, minSwipeDistance: 60, touchAction: 'pan-y' }} on:swipe={handleSwipe}  > 
@@ -87,8 +101,6 @@
     background-color: rgba(7, 7, 7, 0.1);
   }
 
-
-
   .control {
     opacity: 0;
     width: 33%;
@@ -133,9 +145,6 @@
   .next {
     right: 0;
   }
-
-
-
   .inner {
     display: flex;
     align-items: flex-end;
@@ -156,13 +165,13 @@
 
   @media (hover: hover) { 
     .close {
-      transition: all ease-in-out 500ms;
       animation-duration: 3s;
       animation-name: fadeOut;
       width: 80px;
       height: 80px;
       padding: 30px;
       opacity: 0;
+      transition: opacity ease-in-out 300ms;
     }
 
     .close:hover, .control:hover {
@@ -179,12 +188,5 @@
     0%   {opacity: 1}
     100% {opacity: 0;}
   }
-
-
-
-
-
-
-
 
 </style>

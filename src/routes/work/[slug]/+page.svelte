@@ -20,7 +20,6 @@
   const handleHide = () => {
     return fullscreen = false;
   }
-
 </script>
 
 <svelte:head>
@@ -34,7 +33,7 @@
   <h1>{project.attributes.title}</h1>
   <div class="images">
     {#each imageArray as image, i}
-      <button class="fullButton" on:click={()=> {startIndex = i; return  fullscreen = true;}}><img src={`https://strapi-maione.nlj.uber.space${image.attributes.file.data.attributes.formats.large.url}`} alt='current'/></button>
+      <button class="fullButton" on:click={()=> {startIndex = i; return  fullscreen = true;}}><img src={`https://strapi-maione.nlj.uber.space${image.attributes.file.data.attributes.formats.large.url}`} width={`${image.attributes.file.data.attributes.width}`} height={`${image.attributes.file.data.attributes.height}`} style="aspect-ratio: {`${image.attributes.file.data.attributes.width} / ${image.attributes.file.data.attributes.height}`}" alt='current'/></button>
       <ul class="photoInfo">
         <li class="photoTitle">{image.attributes.title} ({image.attributes.year})</li>
         <li>{image.attributes.format}</li>
@@ -70,7 +69,8 @@
   }
 
   img {
-    min-width: 100%;
+    width: 100%;
+    height: auto;
   }
 
   .photoInfo > li {

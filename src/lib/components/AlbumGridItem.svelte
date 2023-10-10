@@ -1,11 +1,14 @@
 <script>
   export let album;
   const imageUrl = album.attributes && album.attributes.cover.data ? `https://strapi-maione.nlj.uber.space${album.attributes.cover.data.attributes.formats.large.url}` : '';
+  const height = album.attributes && album.attributes.cover.data ? `${album.attributes.cover.data.attributes.height}` : '';
+  const width = album.attributes && album.attributes.cover.data ? `${album.attributes.cover.data.attributes.width}` : '';
+  const aspectRatio = `${width} / ${height}`
 </script>
 
 <div class="container">
   <div class="content">
-   <div class="image"><img src={imageUrl} alt="cover"/></div>
+   <div class="image"><img src={imageUrl} height={height} width={width} style="aspect-ratio: {aspectRatio}" alt="cover"/></div>
    <div class="title">{album.attributes.title}</div>
   </div>
 </div>
@@ -49,6 +52,7 @@
     display: inline-block;
     vertical-align: top;
     width: 100%;
+    height: 100%;
   }
 
   @media(min-width: 740px) {

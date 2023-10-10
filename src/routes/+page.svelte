@@ -1,7 +1,7 @@
 <script>
 </script>
 <div class="background">
-  <img  src='https://strapi-maione.nlj.uber.space/uploads/Foe_Me_10f7b97f2a.jpg' alt="splash" />
+  <img src='https://strapi-maione.nlj.uber.space/uploads/Foe_Me_10f7b97f2a.jpg' alt="splash" />
 </div>
 
 <svelte:head>
