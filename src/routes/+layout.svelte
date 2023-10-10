@@ -58,7 +58,6 @@
     padding: 0 20px;
     position: relative;
     align-items: center;
-    max-width: 940px;
   }
 
   .nav-inner {
@@ -104,6 +103,12 @@
 
     a {
       font-size: 24px;
+    }
+  }
+
+  @media(min-width: 1400px) {
+    .nav-inner {
+      padding: 10px 60px;
     }
   }
 

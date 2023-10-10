@@ -103,7 +103,7 @@
     font-weight: normal;
     text-align: center;
     padding: 20px 10px 40px 10px;
-    font-size: 20px;
+    font-size: 24px;
   }
 
   @media(min-width: 910px) {
