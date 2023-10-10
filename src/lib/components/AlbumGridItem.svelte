@@ -38,6 +38,7 @@
     display: flex;
     padding-top: 10px;
     font-size: 12px;
+    font-family: 'Roboto', 'Helvetica', 'Verdana', 'Arial', sans-serif;
   }
   .image {
     display: flex;
