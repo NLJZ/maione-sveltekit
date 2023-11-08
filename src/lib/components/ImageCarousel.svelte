@@ -14,12 +14,14 @@
 
   let container;
 
+  $: url = imageArray[currentIndex].attributes.file.data.attributes.url;
+
   function nextImage() {
-    currentIndex = (currentIndex - 1) % imageArray.length;
+    currentIndex = (currentIndex + 1) % imageArray.length;
   }
 
   function previousImage() {
-    currentIndex = (currentIndex + 1 + imageArray.length) % imageArray.length;
+    currentIndex = (currentIndex - 1 + imageArray.length) % imageArray.length;
   }
 
   function handleSwipe(event) {
@@ -54,16 +56,15 @@
 
 <div bind:this={container} class="container">
   <div class="inner" use:swipe={{ timeframe: 300, minSwipeDistance: 60, touchAction: 'pan-y' }} on:swipe={handleSwipe}  > 
-      {#each imageArray as image, i}
-      {#key i}
-      {#if i === currentIndex}
 
-      <img transition:fade src={`https://strapi-maione.nlj.uber.space${image.attributes.file.data.attributes.url}`} alt='current'/>
+      {#key currentIndex}
+
+      <img transition:fade src={`https://strapi-maione.nlj.uber.space${url}`} alt='current'/>
     
-      {/if}
+ 
       {/key}
 
-    {/each}
+
   </div>
 
   <button class="control prev" on:click={previousImage}><span class="arrow nav navPrev"><LeftIcon /></span></button>

@@ -39,9 +39,6 @@
     padding: 0;
     display: flex;
     flex-direction: column;
-    min-height: calc(100svh - 56px);
-    /* height: 100dvh;
-    height: 100vh; */
     position: relative;
   }
 
