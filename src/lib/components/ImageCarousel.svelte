@@ -17,11 +17,11 @@
   $: url = imageArray[currentIndex].attributes.file.data.attributes.url;
 
   function nextImage() {
-    currentIndex = (currentIndex + 1) % imageArray.length;
+    currentIndex = (currentIndex - 1 + imageArray.length) % imageArray.length;
   }
 
   function previousImage() {
-    currentIndex = (currentIndex - 1 + imageArray.length) % imageArray.length;
+    currentIndex = (currentIndex + 1) % imageArray.length;
   }
 
   function handleSwipe(event) {
