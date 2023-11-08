@@ -17,11 +17,12 @@
   $: url = imageArray[currentIndex].attributes.file.data.attributes.url;
 
   function nextImage() {
-    currentIndex = (currentIndex - 1 + imageArray.length) % imageArray.length;
+    currentIndex = (currentIndex + 1) % imageArray.length;
   }
 
   function previousImage() {
-    currentIndex = (currentIndex + 1) % imageArray.length;
+
+    currentIndex = (currentIndex - 1 + imageArray.length) % imageArray.length;
   }
 
   function handleSwipe(event) {
@@ -31,8 +32,8 @@
 
   function handleKeydown(event) {
     if (event.key === 'Escape') return handleHide();
-    if (event.key === 'ArrowRight') return previousImage();
-    if (event.key === 'ArrowLeft') return nextImage();
+    if (event.key === 'ArrowRight') return nextImage();
+    if (event.key === 'ArrowLeft') return previousImage();
     return;
   }
 
