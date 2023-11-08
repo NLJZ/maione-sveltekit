@@ -8,9 +8,7 @@
   export let data;
   const albums = writable();
   setContext('albums', albums);
-
   $: albums.set(data.albums);
-
   let year =  new Date().getFullYear();
 
 </script>
@@ -30,6 +28,10 @@
   <slot />
 </main>
 
+<footer>
+  &copy; Davide Maione {year}
+</footer>
+
 <style>
   .main-wrapper {
     width: 100%;
@@ -37,6 +39,7 @@
     padding: 0;
     display: flex;
     flex-direction: column;
+    min-height: calc(100svh - 56px);
     /* height: 100dvh;
     height: 100vh; */
     position: relative;
@@ -94,6 +97,14 @@
 
   .right a {
     margin-left: 20px;
+  }
+
+  footer {
+    font-size: 12px;
+    padding: 10px 20px;
+    border-top: 1px solid #ccc;
+    text-align: right;
+    width: 100%;
   }
 
   @media(min-width: 601px) {

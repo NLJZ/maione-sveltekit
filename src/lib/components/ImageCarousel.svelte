@@ -15,11 +15,11 @@
   let container;
 
   function nextImage() {
-    currentIndex = (currentIndex + 1) % imageArray.length;
+    currentIndex = (currentIndex - 1) % imageArray.length;
   }
 
   function previousImage() {
-    currentIndex = (currentIndex - 1 + imageArray.length) % imageArray.length;
+    currentIndex = (currentIndex + 1 + imageArray.length) % imageArray.length;
   }
 
   function handleSwipe(event) {

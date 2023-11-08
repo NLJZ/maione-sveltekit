@@ -14,7 +14,7 @@
 <div class="container">
     <div>
         <p>
-            {@html bio}
+        {@html bio}
         </p>
         <img src={`https://strapi-maione.nlj.uber.space${imageUrl}`} alt='davide maione' />
     </div>

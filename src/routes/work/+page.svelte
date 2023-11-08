@@ -5,6 +5,9 @@
 </script>
 <svelte:head>
 	<title>davide maione - work</title>
+  {#each $albums.data as album}
+  <link rel="prefetch" as="image" href={`https://strapi-maione.nlj.uber.space${album.attributes.cover.data.attributes.formats.large.url}`} />
+  {/each}
 </svelte:head>
 
 <div class="container">
