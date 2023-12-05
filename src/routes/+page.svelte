@@ -1,6 +1,6 @@
 <script>
   export let data;
-  const url = data.splashImages.data.attributes.image.data.find(obj => obj.id === 11).attributes.url;
+  const url = data.splashImages.data.attributes.image.data.find(obj => obj.id === 102).attributes.url;
 </script>
 <div class="background">
   <img src={`https://strapi-maione.nlj.uber.space${url}`} alt="splash" />
