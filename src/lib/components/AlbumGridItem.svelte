@@ -1,14 +1,22 @@
 <script>
+    const getImageUrl = (coverData) => {
+    const largeUrl = coverData.attributes.formats.large?.url;
+    const mediumUrl = coverData.attributes.formats.medium?.url;
+    const originalUrl = coverData.attributes.url;
+    return mediumUrl || largeUrl || originalUrl;
+  };
   export let album;
-  const imageUrl = album.attributes && album.attributes.cover.data ? `https://strapi-maione.nlj.uber.space${album.attributes.cover.data.attributes.formats.large.url}` : '';
+  const imageUrl = album.attributes && album.attributes.cover.data ? `https://strapi-maione.nlj.uber.space${getImageUrl(album.attributes.cover.data)}` : '';
   const height = album.attributes && album.attributes.cover.data ? `${album.attributes.cover.data.attributes.height}` : '';
   const width = album.attributes && album.attributes.cover.data ? `${album.attributes.cover.data.attributes.width}` : '';
-  const aspectRatio = `${width} / ${height}`
+  const aspectRatio = `${width} / ${height}`;
+  const imageStyle = aspectRatio ? `aspect-ratio: ${aspectRatio};` : ''; // Create the style attribute
+
 </script>
 
 <div class="container">
   <div class="content">
-   <div class="image"><img src={imageUrl} height={height} width={width} style="aspect-ratio: {aspectRatio}" alt="cover"/></div>
+   <div class="image"><img src={imageUrl} height={height} width={width} style={imageStyle} alt="cover" loading="lazy" /></div>
    <div class="title">{album.attributes.title}</div>
   </div>
 </div>
@@ -46,6 +54,7 @@
     justify-content: center;
     align-items: flex-end;
     width: 100%;
+    background-color: #f5f5f5; /* Use a neutral background color as a placeholder */
   }
 
   img {

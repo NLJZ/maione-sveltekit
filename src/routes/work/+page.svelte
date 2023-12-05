@@ -5,9 +5,6 @@
 </script>
 <svelte:head>
 	<title>davide maione - work</title>
-  {#each $albums.data as album}
-  <link rel="prefetch" as="image" href={`https://strapi-maione.nlj.uber.space${album.attributes.cover.data.attributes.formats.large.url}`} />
-  {/each}
 </svelte:head>
 
 <div class="container">
@@ -24,6 +21,7 @@
 	.container {
     flex-grow: 2;
     height: 100%;
+    width: 100%;
 	}
 
   .grid {
@@ -31,6 +29,11 @@
     gap: 20px;
     grid-template-columns: 1fr;
     padding: 20px 0 200px 0;
+  }
+
+  .grid > a {
+    width: 100%;
+    height: 100%;
   }
 
   @media(min-width: 640px) {

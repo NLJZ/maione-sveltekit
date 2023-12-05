@@ -14,8 +14,20 @@
   let fullscreen = false;
   let startIndex = 0;
 
-  const description = marked(project.attributes.description, { breaks: true });
-  const imageArray = project.attributes.photos.data;
+  let description;
+
+  if (project.attributes && project.attributes.description) {
+    description = marked(project.attributes.description, { breaks: true });
+  }
+  const imageArray = project.attributes.photos.data || [];
+
+  const getImageUrl = (image) => {
+    const largeUrl = image.attributes.file.data.attributes.formats.large?.url;
+    const mediumUrl = image.attributes.file.data.attributes.formats.medium?.url;
+    const originalUrl = image.attributes.file.data.attributes.url;
+
+    return largeUrl || mediumUrl || originalUrl;
+  };
 
   const handleHide = () => {
     return fullscreen = false;
@@ -24,26 +36,30 @@
 
 <svelte:head>
 	<title>davide maione - {project.attributes.title}</title>
-  {#each imageArray as image}
-    <link rel="prefetch" as="image" href={`https://strapi-maione.nlj.uber.space${image.attributes.file.data.attributes.formats.large.url}`} />
-  {/each}
 </svelte:head>
 
 <div class="content">
   <h1>{project.attributes.title}</h1>
   <div class="images">
     {#each imageArray as image, i}
-      <button class="fullButton" on:click={()=> {startIndex = i; return  fullscreen = true;}}><img src={`https://strapi-maione.nlj.uber.space${image.attributes.file.data.attributes.formats.large.url}`} width={`${image.attributes.file.data.attributes.width}`} height={`${image.attributes.file.data.attributes.height}`} style="aspect-ratio: {`${image.attributes.file.data.attributes.width} / ${image.attributes.file.data.attributes.height}`}" alt='current'/></button>
+      <button class="fullButton" on:click={()=> {startIndex = i; return  fullscreen = true;}}>
+        <img src={`https://strapi-maione.nlj.uber.space${getImageUrl(image)}`} width={`${image.attributes.file.data.attributes.width}`} height={`${image.attributes.file.data.attributes.height}`} style="aspect-ratio: {`${image.attributes.file.data.attributes.width} / ${image.attributes.file.data.attributes.height}`}" alt='current'/></button>
       <ul class="photoInfo">
-        <li class="photoTitle">{image.attributes.title} ({image.attributes.year})</li>
-        <li>{image.attributes.format}</li>
-        <li>{image.attributes.size}</li>
+        <li class="photoTitle">{image.attributes.title} {#if image.attributes.year}({image.attributes.year}){/if}</li>
+        {#if image.attributes.format}
+          <li>{image.attributes.format}</li>
+        {/if}
+        {#if image.attributes.size}
+          <li>{image.attributes.size}</li>
+        {/if}
       </ul>
     {/each}
   </div>
+  {#if description}
   <div class="description">
     {@html description}
   </div>
+  {/if}
   {#if fullscreen}
   <div transition:fade>
   <ImageCarousel  handleHide={handleHide} imageArray={imageArray} startIndex={startIndex} />
