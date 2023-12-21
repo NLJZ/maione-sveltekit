@@ -54,7 +54,6 @@
     justify-content: center;
     align-items: flex-end;
     width: 100%;
-    background-color: #f5f5f5; /* Use a neutral background color as a placeholder */
   }
 
   img {
