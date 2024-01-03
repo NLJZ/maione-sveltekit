@@ -13,14 +13,17 @@
 
 <div class="container">
     <div>
+        <img src={`https://strapi-maione.nlj.uber.space${imageUrl}`} alt='davide maione' />
         <p>
         {@html bio}
         </p>
-        <img src={`https://strapi-maione.nlj.uber.space${imageUrl}`} alt='davide maione' />
+        
     </div>
-    <p>
-        {@html cv}  
-    </p>
+    <div>
+        <p>
+            {@html cv}  
+        </p>
+    </div>
 </div>
 
 <style>
@@ -40,7 +43,7 @@
     img {
         margin: 20px 0;
         width: 100%;
-        max-width: 560px;
+        max-width: 600px;
     }
 
     @media(min-width: 560px) {
