@@ -91,13 +91,12 @@
 
   .photoInfo > li {
     font-family:'Courier New', Courier, monospace;
-    font-size: 11px;
+    font-size: 14px;
     text-align: right;
-
   }
 
   .photoInfo {
-    padding: 10px 10px 40px 0;
+    padding: 10px 10px 40px 10px;
   }
 
   .description {

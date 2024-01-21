@@ -45,7 +45,8 @@
   .title {
     display: flex;
     padding-top: 10px;
-    font-size: 12px;
+    font-size: 16px;
+    font-weight: 400;
     font-family: 'Roboto', 'Helvetica', 'Verdana', 'Arial', sans-serif;
   }
   .image {
