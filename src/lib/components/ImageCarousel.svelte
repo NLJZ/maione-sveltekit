@@ -14,14 +14,22 @@
 
   let container;
 
-  $: url = imageArray[currentIndex].attributes.file.data.attributes.url;
+  let url;
+  $: {
+    if (imageArray[currentIndex] && imageArray[currentIndex].attributes) {
+        if (imageArray[currentIndex].attributes.file && imageArray[currentIndex].attributes.file.data && imageArray[currentIndex].attributes.file.data.attributes) {
+            url = imageArray[currentIndex].attributes.file.data.attributes.url;
+        } else if (imageArray[currentIndex].attributes.image && imageArray[currentIndex].attributes.image.data && imageArray[currentIndex].attributes.image.data.attributes) {
+            url = imageArray[currentIndex].attributes.image.data.attributes.url;
+        }
+    }
+  }
 
   function nextImage() {
     currentIndex = (currentIndex + 1) % imageArray.length;
   }
 
   function previousImage() {
-
     currentIndex = (currentIndex - 1 + imageArray.length) % imageArray.length;
   }
 
@@ -51,7 +59,11 @@
 
 <svelte:head>
   {#each imageArray as image}
-  <link rel="prefetch" as="image" href={`https://strapi-maione.nlj.uber.space${image.attributes.file.data.attributes.url}`} />
+    {#if image.attributes.file && image.attributes.file.data && image.attributes.file.data.attributes}
+      <link rel="prefetch" as="image" href={`https://strapi-maione.nlj.uber.space${image.attributes.file.data.attributes.url}`} />
+    {:else if image.attributes.image && image.attributes.image.data && image.attributes.image.data.attributes}
+      <link rel="prefetch" as="image" href={`https://strapi-maione.nlj.uber.space${image.attributes.image.data.attributes.url}`} />
+    {/if}
   {/each}
 </svelte:head>
 

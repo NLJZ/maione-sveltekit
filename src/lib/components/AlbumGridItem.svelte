@@ -17,7 +17,12 @@
 <div class="container">
   <div class="content">
    <div class="image"><img src={imageUrl} height={height} width={width} style={imageStyle} alt="cover" loading="lazy" /></div>
+   {#if album.attributes.title}
    <div class="title">{album.attributes.title}</div>
+   {/if}
+   {#if album.attributes.client}
+    <div class="title">{album.attributes.client}</div>
+    {/if}
   </div>
 </div>
 
