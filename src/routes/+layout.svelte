@@ -29,21 +29,25 @@
 
   let mobileMenu;
 
-  onMount(async () => {
-    const handleClickOutside = (event) => {
-      if (menuOpen && mobileMenu && !mobileMenu.contains(event.target)) {
-        menuOpen = false;
-      }
-    };
+onMount(async () => {
+  const handleClickOutside = (event) => {
+    if (menuOpen && mobileMenu && !mobileMenu.contains(event.target)) {
+      event.preventDefault();
+      event.stopPropagation();
+      menuOpen = false;
+    }
+  };
 
-        // Wait for the next microtask to ensure the menu is fully opened
-      await tick();
-      window.addEventListener('click', handleClickOutside);
+  // Wait for the next microtask to ensure the menu is fully opened
+  await tick();
+  window.addEventListener('touchstart', handleClickOutside, true); // useCapture = true
+  window.addEventListener('click', handleClickOutside, true); // useCapture = true
 
-      return () => {
-        window.removeEventListener('click', handleClickOutside);
-      };
-  });
+  return () => {
+    window.removeEventListener('touchstart', handleClickOutside, true); // useCapture = true
+    window.removeEventListener('click', handleClickOutside, true); // useCapture = true
+  };
+});
 
 </script>
 
@@ -54,8 +58,8 @@
 <nav>
   <div class="fixed-inner nav-inner">
     <a href="/" class="site-title">davide maione</a>
-    <div bind:this={mobileMenu} class="mobileMenu" class:open={menuOpen}><a href="/work" class:active="{$page.url.pathname.includes("/work")}">work</a><a href="/commercial" class:active="{$page.url.pathname.includes("/commercial")}">commercial</a><a href="/about" class="smallLink" class:active="{$page.url.pathname.includes("/about")}">about</a><a href="/contact" class="smallLink" class:active="{$page.url.pathname.includes("/contact")}">contact</a></div>
-    <div class="right" class:open={menuOpen}><a href="/work" class:active="{$page.url.pathname.includes("/work")}">work</a><a href="/commercial" class:active="{$page.url.pathname.includes("/commercial")}">commercial</a><a href="/about" class="smallLink" class:active="{$page.url.pathname.includes("/about")}">about</a><a href="/contact" class="smallLink" class:active="{$page.url.pathname.includes("/contact")}">contact</a></div>
+    <div bind:this={mobileMenu} class="mobileMenu" class:open={menuOpen}><a href="/work" class:active="{$page.url.pathname.includes("/work")}">work</a><a href="/commissions" class:active="{$page.url.pathname.includes("/commissions")}">commissions</a><a href="/about" class="smallLink" class:active="{$page.url.pathname.includes("/about")}">about</a><a href="/contact" class="smallLink" class:active="{$page.url.pathname.includes("/contact")}">contact</a></div>
+    <div class="right" class:open={menuOpen}><a href="/work" class:active="{$page.url.pathname.includes("/work")}">work</a><a href="/commissions" class:active="{$page.url.pathname.includes("/commissions")}">commissions</a><a href="/about" class="smallLink" class:active="{$page.url.pathname.includes("/about")}">about</a><a href="/contact" class="smallLink" class:active="{$page.url.pathname.includes("/contact")}">contact</a></div>
     <button class="hamburger-menu" class:open={menuOpen} on:click|stopPropagation={toggleMenu}>
       <div></div>
       <div></div>
@@ -170,12 +174,12 @@
 }
 
   .mobileMenu {
-    position: absolute;
+    position: fixed;
     right: -500px;
     transition: all ease-in-out 300ms;
     display: flex;
     flex-direction: column;
-    top: 100%;
+    top: 51px;
     background: #fff;
     padding: 10px 20px;
     z-index: 200;
@@ -184,6 +188,7 @@
     align-items: flex-end;
     gap: 10px;
     opacity: 0;
+    max-width: 100vw;
   }
 
   .mobileMenu.open {
