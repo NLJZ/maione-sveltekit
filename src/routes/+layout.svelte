@@ -40,11 +40,11 @@ onMount(async () => {
 
   // Wait for the next microtask to ensure the menu is fully opened
   await tick();
-  window.addEventListener('touchstart', handleClickOutside, true); // useCapture = true
+  window.addEventListener('touchend', handleClickOutside, true); // useCapture = true
   window.addEventListener('click', handleClickOutside, true); // useCapture = true
 
   return () => {
-    window.removeEventListener('touchstart', handleClickOutside, true); // useCapture = true
+    window.removeEventListener('touchend', handleClickOutside, true); // useCapture = true
     window.removeEventListener('click', handleClickOutside, true); // useCapture = true
   };
 });
