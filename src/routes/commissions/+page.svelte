@@ -4,7 +4,7 @@
 	const commercialAlbums = getContext('commercialAlbums');
 </script>
 <svelte:head>
-	<title>davide maione - commercial</title>
+	<title>davide maione - commissions</title>
 </svelte:head>
 
 <div class="container">
