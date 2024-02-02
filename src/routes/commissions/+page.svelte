@@ -10,7 +10,7 @@
 <div class="container">
 	<div class="grid">
     {#each $commercialAlbums.data as album}
-      <a href={`/commercial/${album.attributes.slug}`}><AlbumGridItem album={album} /></a>
+      <a href={`/commissions/${album.attributes.slug}`}><AlbumGridItem album={album} /></a>
     {/each}
   </div>
 

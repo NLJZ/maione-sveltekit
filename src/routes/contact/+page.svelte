@@ -13,7 +13,7 @@
 <style>
   .container {
     padding-top: 40px;
-    min-height: calc(100svh - 50px);
+    min-height: calc(100svh - 96px);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -22,12 +22,12 @@
   h1, a {
     font-weight: normal;
     text-align: center;
-    padding: 20px 10px 40px 10px;
-    font-size: 24px;
+    padding: 20px 10px;
+    font-size: 20px;
   }
 
   .phone {
-    font-size: 24px;
+    font-size: 20px;
     padding-top: 20px;
     padding-bottom: 10px;
   }
@@ -46,6 +46,12 @@
   .logoLinks {
     display: flex;
     gap: 20px;
+  }
+
+  @media(min-width: 600px) {
+    h1, a, .phone {
+      font-size: 24px;
+    }
   }
 
 </style>
